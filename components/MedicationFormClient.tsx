@@ -16,6 +16,7 @@ export default function MedicationFormClient() {
   const [todayStr, setTodayStr] = useState('');
   const [timeGiven, setTimeGiven] = useState('');
   const [notes, setNotes] = useState('');
+  const [formError, setFormError] = useState<string | null>(null);
   const [entries, setEntries] = useState<MedicationEntry[]>([
     { medication: '', quantity: '', unit: '' }
   ]);
@@ -60,6 +61,20 @@ export default function MedicationFormClient() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
+
+    const validEntries = entries.filter(entry =>
+      entry.medication &&
+      entry.unit &&
+      entry.quantity &&
+      !isNaN(parseInt(entry.quantity)) &&
+      parseInt(entry.quantity) > 0
+    );
+
+    if (validEntries.length === 0) {
+      setFormError("Please add at least one valid medication entry");
+      return;
+    }
 
     const createdAt = new Date().toISOString();
 
@@ -69,22 +84,13 @@ export default function MedicationFormClient() {
       timeGiven,
       notes,
       medicationEntries: {
-        create: entries
-          .filter(entry =>
-            entry.medication &&
-            entry.unit &&
-            entry.quantity &&
-            parseInt(entry.quantity) > 0
-          )
-          .map(entry => ({
-            medication: entry.medication,
-            quantity: entry.quantity,
-            unit: entry.unit,
-          })),
+        create: validEntries.map(entry => ({
+          medication: entry.medication,
+          quantity: entry.quantity,
+          unit: entry.unit,
+        })),
       }
     };
-
-    console.log({ payload });
 
     try {
       const { data } = await createMedForm({ variables: payload });
@@ -94,10 +100,13 @@ export default function MedicationFormClient() {
       setEntries([{ medication: '', quantity: '', unit: '' }]);
       setTimeGiven('');
       setNotes('');
+      setFormError(null);
     } catch (err) {
       console.error(err);
+      setFormError("Something went wrong while submitting. Please try again.");
     }
   };
+
 
   return (
     <div className="max-w-md mx-auto p-4">
@@ -105,7 +114,7 @@ export default function MedicationFormClient() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {todayStr && (
-            <input
+          <input
             type="date"
             value={date || ''}
             max={todayStr || ''}
@@ -193,13 +202,16 @@ export default function MedicationFormClient() {
           className="w-full border p-2"
         />
 
-        <button
-          type="submit"
-          disabled={creating || publishing}
-          className="bg-blue-600 text-white px-4 py-2 rounded w-full"
-        >
+        {formError && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded text-sm mb-2">
+            {formError}
+          </div>
+        )}
+
+        <button type="submit" disabled={creating || publishing} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
           {creating || publishing ? 'Saving...' : 'Submit All'}
         </button>
+
       </form>
 
       {entries.some(entry => entry.medication || entry.quantity || entry.unit) && (

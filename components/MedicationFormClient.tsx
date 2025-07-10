@@ -4,19 +4,19 @@ import { useMutation } from '@apollo/client';
 import { CREATE_MED_FORM } from '@/lib/graphql/mutations/createMedicationForm';
 import { PUBLISH_MED_FORM } from '@/lib/graphql/mutations/publishMedicationForm';
 
-type MedicationFormData = {
-  medication: string;
-  quantity: number;
-  unit: string;
-  timeGiven: string;
-  notes: string;
-  date?: string; // ✅ mark as optional
-};
+// type MedicationFormData = {
+//   medication: string;
+//   quantity: number;
+//   unit: string;
+//   timeGiven: string;
+//   notes: string;
+//   date?: string; // ✅ mark as optional
+// };
 
 export default function MedicationFormClient() {
   const [hydrated, setHydrated] = useState(false); // NEW
   const [formData, setFormData] = useState({
-    medication: 'sinemet',
+    medication: '',
     quantity: '',
     unit: '',
     timeGiven: '',
@@ -59,6 +59,14 @@ export default function MedicationFormClient() {
       const { data } = await createMedForm({ variables: payload });
       const id = data?.createMedicationForm?.id;
       if (id) await publishMedForm({ variables: { id } });
+      setFormData({
+        medication: '',
+        quantity: '',
+        unit: '',
+        timeGiven: '',
+        notes: '',
+        date: formData.date, // keep the selected date
+      });
     } catch (err) {
       console.error(err);
     }

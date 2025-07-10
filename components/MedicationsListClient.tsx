@@ -18,7 +18,11 @@ type MedicationForm = {
   notes: string;
 };
 
-export default function MedicationsListClient() {
+type MedicationsListClientProps = {
+  date: string;
+};
+
+export default function MedicationsListClient({ date }: MedicationsListClientProps) {
   const [selectedDate, setSelectedDate] = useState<string>('');
 
   useEffect(() => {

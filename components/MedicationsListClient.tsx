@@ -22,7 +22,7 @@ type MedicationsListClientProps = {
   date: string;
 };
 
-export default function MedicationsListClient({ date }: MedicationsListClientProps) {
+export default function MedicationsListClient() {
   const [selectedDate, setSelectedDate] = useState<string>('');
 
   useEffect(() => {

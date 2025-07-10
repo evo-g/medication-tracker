@@ -2,6 +2,16 @@
 
 import MedicationsListClient from '@/components/MedicationsListClient';
 
-export default function MedicationsListPage() {
-  return <MedicationsListClient />;
+type Props = {
+  params: {
+    date: string;
+  };
+};
+
+export default function Page({ params }: Props) {
+  return <MedicationsListClient date={params.date} />;
+}
+
+export async function generateStaticParams() {
+  return [];
 }

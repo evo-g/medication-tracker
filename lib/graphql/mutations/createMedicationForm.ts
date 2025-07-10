@@ -1,20 +1,20 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_MED_FORM = gql`
-  mutation CreateMedForm(
-    $medicationEntry: MedicationEntryCreateInput!,
-    $timeGiven: String!,
-    $notes: String!,
-    $date: Date!,
+  mutation CreateMedicationForm(
     $createdAt: DateTime!
+    $date: Date!
+    $timeGiven: String!
+    $notes: String!
+    $medicationEntries: MedicationEntryCreateManyInlineInput!
   ) {
     createMedicationForm(
       data: {
-        medicationEntry: { create: $medicationEntry },
-        timeGiven: $timeGiven,
-        notes: $notes,
-        date: $date,
         createdAt: $createdAt
+        date: $date
+        timeGiven: $timeGiven
+        notes: $notes
+        medicationEntries: $medicationEntries
       }
     ) {
       id

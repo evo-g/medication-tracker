@@ -7,7 +7,7 @@ export const GET_MED_FORMS_BY_DATE = gql`
       date
       timeGiven
       notes
-      medicationEntry {
+      medicationEntries {
         medication
         quantity
         unit

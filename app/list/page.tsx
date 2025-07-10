@@ -11,7 +11,3 @@ type Props = {
 export default function Page({ params }: Props) {
   return <MedicationsListClient date={params.date} />;
 }
-
-export async function generateStaticParams() {
-  return [];
-}

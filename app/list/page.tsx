@@ -2,12 +2,6 @@
 
 import MedicationsListClient from '@/components/MedicationsListClient';
 
-type Props = {
-  params: {
-    date: string;
-  };
-};
-
-export default function Page({ params }: Props) {
+export default function Page({ params }: { params: { date: string } }) {
   return <MedicationsListClient date={params.date} />;
 }

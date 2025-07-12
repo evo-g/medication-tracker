@@ -44,6 +44,18 @@ export default function MedicationFormClient() {
     }
   };
 
+  const getCurrentTimeString = () => {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 -> 12
+    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+    return `${hours}:${minutesStr} ${ampm}`;
+  };
+
+
   const handleEntryChange = (index: number, field: keyof MedicationEntry, value: string) => {
     const updated = [...entries];
     updated[index][field] = value;
@@ -187,13 +199,23 @@ export default function MedicationFormClient() {
           + Add another medication
         </button>
 
-        <input
-          type="text"
-          placeholder="Time Given (e.g. 12:00 PM)"
-          value={timeGiven}
-          onChange={(e) => setTimeGiven(e.target.value)}
-          className="w-full border p-2"
-        />
+        <div className="flex space-x-2 items-center">
+          <input
+            type="text"
+            placeholder="Time Given (e.g. 12:00 PM)"
+            value={timeGiven}
+            onChange={(e) => setTimeGiven(e.target.value)}
+            className="flex-1 border p-2"
+          />
+          <button
+            type="button"
+            onClick={() => setTimeGiven(getCurrentTimeString())}
+            className="bg-gray-200 hover:bg-gray-300 text-sm px-2 py-1 rounded"
+          >
+            Now
+          </button>
+        </div>
+
 
         <textarea
           placeholder="Notes"

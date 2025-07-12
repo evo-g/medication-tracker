@@ -23,10 +23,12 @@ export default function MedicationsListClient() {
   const [todayStr, setTodayStr] = useState<string>('');
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    setSelectedDate(today);
-    setTodayStr(today);
+    const today = new Date();
+    const localDateStr = today.toLocaleDateString('en-CA'); 
+    setSelectedDate(localDateStr);
+    setTodayStr(localDateStr);
   }, []);
+
 
   const { data, loading, error } = useQuery(GET_MED_FORMS_BY_DATE, {
     variables: { date: selectedDate },

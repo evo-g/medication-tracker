@@ -20,7 +20,34 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fdfaf6;
+  font-family: 'Inter', sans-serif;
+  color: #374151;
+}
+
+h1, h2, h3 {
+  color: #111827;
+}
+
+input, select, textarea {
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  padding: 0.75rem;
+}
+
+button {
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
 }

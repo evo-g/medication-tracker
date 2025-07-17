@@ -61,7 +61,7 @@ export default function MedicationsListClient() {
 
       <ul className="space-y-2">
         {medicationForms.map((form) => (
-          <li key={form.id} className="border p-2 rounded hover:bg-gray-100">
+          <li key={form.id} className="card hover:bg-gray-50 transition">
             {form.medicationEntries?.map((entry, i) => (
               <p key={i}>
                 <strong>{entry.medication}</strong> - {entry.quantity} {entry.unit} at {form.timeGiven}

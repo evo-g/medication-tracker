@@ -210,7 +210,7 @@ export default function MedicationFormClient() {
           <button
             type="button"
             onClick={() => setTimeGiven(getCurrentTimeString())}
-            className="bg-gray-200 hover:bg-gray-300 text-sm px-2 py-1 rounded"
+            className="bg-amber-400 hover:bg-amber-500 text-white text-sm px-3 py-1 rounded shadow"
           >
             Now
           </button>
@@ -230,7 +230,11 @@ export default function MedicationFormClient() {
           </div>
         )}
 
-        <button type="submit" disabled={creating || publishing} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
+        <button
+          type="submit"
+          disabled={creating || publishing}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full font-medium"
+        >
           {creating || publishing ? 'Saving...' : 'Submit All'}
         </button>
 
@@ -243,7 +247,7 @@ export default function MedicationFormClient() {
             {entries
               .filter(entry => entry.medication || entry.quantity || entry.unit)
               .map((entry, index) => (
-                <li key={index}>
+                <li key={index} className="card hover:bg-gray-50 transition">
                   {entry.medication && `${entry.medication}`}
                   {entry.quantity && ` - ${entry.quantity}`}
                   {entry.unit && ` ${entry.unit}`}

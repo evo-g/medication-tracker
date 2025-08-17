@@ -36,6 +36,7 @@ export default function MedicationFormClient() {
       case 'venla':
         return 'tablet';
       case 'amantadine':
+      case 'rytary':
         return 'pill';
       case 'patch':
         return 'patch';
@@ -157,6 +158,7 @@ export default function MedicationFormClient() {
               className="w-full border p-2"
             >
               <option value="">Select Medication</option>
+              <option value="rytary">Rytary</option>
               <option value="sinemet">Sinemet</option>
               <option value="zofran">Zofran</option>
               <option value="amantadine">Amantadine</option>
